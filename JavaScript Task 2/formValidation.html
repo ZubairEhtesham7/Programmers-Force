@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <style>
+        body {
+            font-family: "Verdana", sans-serif;
+            padding: 0;
+            margin: 0;
+        }
+
+        .mainDiv {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: darkgrey;
+
+        }
+
+        .formDiv {
+            position: absolute;
+            top: 0;
+            position: absolute;
+            width: 35vw;
+            background-color: lightgrey;
+        }
+
+        .formContent {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type=text],
+        input[type=email] {
+            width: 50%;
+            padding: 6px 2px;
+        }
+
+        select[type=degree],
+        select[type=graduationyear],
+        select[type=courses] {
+            width: 23.6%;
+        }
+
+        input[type=password] {
+            width: 50%;
+            padding: 6px 2px;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=" mainDiv">
+        <div class="formDiv">
+            <h1 style="display: flex;
+            align-items: center;
+            justify-content: center;">Registration Form</h1>
+            <form id="registrationForm" onsubmit="validateForm()">
+                <div class="formContent">
+                    <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
+                    <span id="fullNameError" class="error"></span><br><br>
+
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <span id="usernameError" class="error"></span><br><br>
+
+                    <input type="text" id="phone" name="phone" placeholder="Phone" required>
+                    <span id="phoneError" class="error"></span><br><br>
+
+                    <input type="email" id="email" name="email" placeholder="Email" required>
+                    <span id="emailError" class="error"></span><br><br>
+
+                    <select type="degree" id="firstDropDown" name="degree" required>
+                        <option value="" selected>Select Degree</option>
+                        <option value="1">Bachelors</option>
+                        <option value="2">Masters</option>
+                    </select>
+                    <span id="degreeError" class="error"></span><br><br>
+
+                    <select type="graduationyear" id="secondDropDown" name="graduationYear" style="display: none;"
+                        required>
+                        <option value="" selected>Graduation Years</option>
+                        <option value="1">1 Years</option>
+                        <option value="2">2 Years</option>
+                        <option value="3">4 Years</option>
+                        <option value="4">5 Years</option>
+                    </select>
+                    <span id="graduationYearError" class="error"></span><br><br>
+
+                    <select type="courses" id="thirdDropDown" name="courses" style="display: none;" required>
+                        <option value="" selected>Courses</option>
+                        <option value="1">BS-Computer Science</option>
+                        <option value="2">BS-Information Technology</option>
+                        <option value="3">MS-Computer Science</option>
+                        <option value="4">MS-Information Technology</option>
+                    </select>
+                    <span id="coursesError" class="error"></span><br><br>
+
+                    <input type="password" id="password" name="password" placeholder="Password" required>
+                    <span id="passwordError" class="error"></span><br>
+                    <input type="checkbox" onclick="togglePasswordVisibility()">Show Password<br><br>
+
+                    <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        function validateForm(event) {
+            event.preventDefault(); // Prevent form submission if validation fails
+
+            // Clear previous error messages
+            clearErrors();
+
+            // Retrieve form inputs
+            var fullName = document.getElementById("fullName").value;
+            var username = document.getElementById("username").value;
+            var phone = document.getElementById("phone").value;
+            var email = document.getElementById("email").value;
+            var degree = document.getElementById("degree").value;
+            var graduationYear = document.getElementById("graduationYear").value;
+            var courses = document.getElementById("courses").value;
+            var password = document.getElementById("password").value;
+
+            // Validation rules
+            var fullNameRegex = /^[A-Za-z]+ [A-Za-z]+$/;
+            var usernameRegex = /^[a-zA-Z0-9_]{4,20}$/;
+            var phoneRegex = /^\d{11}$/;
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // Flag to track form validity
+            var isValid = true;
+
+            // Validate Full Name
+            if (!fullName.match(fullNameRegex)) {
+                document.getElementById("fullNameError").textContent = "Invalid Full Name";
+                isValid = false;
+            }
+
+            // Validate Username
+            if (!username.match(usernameRegex)) {
+                document.getElementById("usernameError").textContent = "Invalid Username";
+                isValid = false;
+            }
+
+            // Validate Phone Number
+            if (!phone.match(phoneRegex)) {
+                document.getElementById("phoneError").textContent = "Invalid Phone Number";
+                isValid = false;
+            }
+
+            // Validate Email
+            if (!email.match(emailRegex)) {
+                document.getElementById("emailError").textContent = "Invalid Email";
+                isValid = false;
+            }
+
+            // Validate Degree Selection
+            if (degree === "") {
+                document.getElementById("degreeError").textContent = "Please select a Degree";
+                isValid = false;
+            }
+
+            // Validate Graduation Year
+            if (graduationYear === "") {
+                document.getElementById("graduationYearError").textContent = "Please select Years of Graduation";
+                isValid = false;
+            }
+
+            // Validate Course Selection
+            if (courses === "") {
+                document.getElementById("coursesError").textContent = "Please select Courses";
+                isValid = false;
+            }
+
+            // Validate Password
+            if (password.length < 8) {
+                document.getElementById("passwordError").textContent = "Password should be at least 8 characters long";
+                isValid = false;
+            }
+
+            // Submit form if all inputs are valid
+            if (isValid) {
+                document.getElementById("registrationForm").submit();
+            }
+        }
+
+        const firstDropDown = document.getElementById("firstDropDown");
+        const secondDropDown = document.getElementById("secondDropDown");
+        const thirdDropDown = document.getElementById("thirdDropDown");
+
+        firstDropDown.addEventListener("change", function () {
+            const selectedDegree = firstDropDown.value;
+
+            if (selectedDegree !== "0") {
+                secondDropDown.style.display = "inline-block";
+            } else {
+                secondDropDown.style.display = "none";
+                thirdDropDown.style.display = "none";
+            }
+        });
+
+        secondDropDown.addEventListener("change", function () {
+            const selectedTenure = secondDropDown.value;
+
+            if (selectedTenure !== "0") {
+
+                thirdDropDown.style.display = "inline-block";
+            } else {
+                thirdDropDown.style.display = "none";
+            }
+        });
+
+        function clearErrors() {
+            var errorElements = document.getElementsByClassName("error");
+            for (var i = 0; i < errorElements.length; i++) {
+                errorElements[i].textContent = "";
+            }
+        }
+
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>

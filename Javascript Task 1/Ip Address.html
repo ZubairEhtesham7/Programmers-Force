@@ -1,0 +1,44 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP and Location Finder</title>
+    <h1>Check your IP Address and Location</h1>
+    <button>Check IP Address</button>
+    <p><strong>IP Address:</strong><span id="ipAddress"></span></p>
+    <button>Check Location</button>
+    <p><strong>Location:</strong> <span id="location"></span></p>172.16.4.231
+</head>
+
+<body>
+    <script>
+        function getIPAddress() {
+            fetch("https://api.ipify.org?format=json")
+                .then(response => response.json())
+                .then(data => {
+                    var ip = data.ip;
+                    document.getElementById("ipAddress").textContent = ip;
+                    getLocation(ip);
+                })
+                .catch(error => console.log(error));
+        }
+
+        function getLocation(ip) {
+            fetch("https://ipapi.co/" + ip + "/json/")
+                .then(response => response.json())
+                .then(locationData => {
+                    var location = locationData.city + ", " + locationData.region + ", " + locationData.country;
+                    document.getElementById("location").textContent = location;
+                })
+                .catch(error => console.log(error));
+        }
+
+        window.onload = function () {
+            getIPAddress();
+        };
+    </script>
+
+</body>
+
+</html>

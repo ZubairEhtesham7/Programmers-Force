@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search History</title>
+    <script>
+        var searchHistory = [];
+        var searchTimeout;
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var searchInput = document.getElementById("searchInput");
+            var searchButton = document.getElementById("searchButton");
+            var historyList = document.getElementById("searchHistory");
+
+            searchInput.addEventListener("input", function () {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(showMatchingHistory, 300);
+            });
+
+            searchButton.addEventListener("click", search);
+
+            function search() {
+                var searchText = searchInput.value.trim();
+
+                if (searchText !== "") {
+                    addToHistory(searchText);
+
+                    console.log("Performing search for: " + searchText);
+
+                    searchInput.value = "";
+                }
+            }
+
+            function addToHistory(searchText) {
+                searchHistory.push(searchText);
+                updateHistoryList();
+            }
+
+            function updateHistoryList() {
+                historyList.innerHTML = "";
+
+                for (var i = 0; i < searchHistory.length; i++) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = searchHistory[i];
+
+                    listItem.addEventListener("click", function () {
+                        searchInput.value = this.textContent;
+                    });
+
+                    historyList.appendChild(listItem);
+                }
+            }
+
+            function showMatchingHistory() {
+                var searchText = searchInput.value.trim();
+                var matchingHistory = searchHistory.filter(function (item) {
+                    return item.toLowerCase().startsWith(searchText.toLowerCase());
+                });
+
+                updateMatchingHistoryList(matchingHistory);
+            }
+
+            function updateMatchingHistoryList(matchingHistory) {
+                var matchingList = document.getElementById("matchingHistory");
+                matchingList.innerHTML = "";
+
+                for (var i = 0; i < matchingHistory.length; i++) {
+                    var listItem = document.createElement("li");
+                    listItem.textContent = matchingHistory[i];
+
+                    listItem.addEventListener("click", function () {
+                        searchInput.value = this.textContent;
+                    });
+
+                    matchingList.appendChild(listItem);
+                }
+            }
+        });
+
+        function clearHistory() {
+            searchHistory = [];
+            updateHistoryList();
+        }
+    </script>
+    <style>
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Search History</h1>
+
+    <input type="text" id="searchInput" placeholder="Enter your search query">
+    <button id="searchButton">Search</button>
+
+    <h2>Search History:</h2>
+    <ul id="searchHistory"></ul>
+
+    <h2>Matching History:</h2>
+    <ul id="matchingHistory"></ul>
+
+    <button onclick="clearHistory()">Clear History</button>
+</body>
+
+</html>
