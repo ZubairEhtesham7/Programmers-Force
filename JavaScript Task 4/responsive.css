@@ -1,0 +1,50 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  padding: 30px;
+}
+.mainDiv {
+  display: flex;
+}
+.col1 {
+  height: 260;
+  width: 460px;
+  background-color: powderblue;
+}
+.row1row2Div {
+  flex-direction: column;
+  padding-left: 30px;
+}
+.col2row1Div {
+  display: flex;
+  gap: 30px;
+}
+.col2row1 {
+  gap: 30px;
+  height: 114px;
+  width: 250px;
+  background-color: powderblue;
+}
+.col2row2Div {
+  display: flex;
+  padding-top: 30px;
+  gap: 30px;
+}
+.col2row2 {
+  height: 114px;
+  width: 250px;
+  background-color: powderblue;
+}
+.longDiv {
+  height: 130px;
+  width: 1300px;
+  margin-top: 40px;
+  background-color: powderblue;
+}
+.horizontal4Div {
+  display: flex;
+  gap: 100px;
+  margin-top: 40px;
+}
