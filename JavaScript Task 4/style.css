@@ -10,10 +10,11 @@ body {
 }
 .col1 {
   height: 260px;
-  width: 460px;
+  width: 40%;
   background-color: rgb(187, 68, 68);
 }
 .col2 {
+  width: 60%;
   flex-direction: column;
   padding-left: 30px;
 }
@@ -23,12 +24,12 @@ body {
 }
 .boxes {
   height: 115px;
-  width: 250px;
+  width: 31%;
   background-color: rgb(77, 164, 214);
 }
 .removeboxes {
   height: 115px;
-  width: 250px;
+  width: 31%;
   background-color: rgb(77, 164, 214);
 }
 .addBoxes {
@@ -41,7 +42,7 @@ body {
 }
 .longDiv {
   height: 130px;
-  width: 1300px;
+  width: 100%;
   margin-top: 40px;
   background-color: rgb(61, 190, 93);
 }
@@ -52,32 +53,17 @@ body {
 }
 .boxes4 {
   height: 125px;
-  width: 300px;
+  width: 30%;
   background-color: rgb(77, 164, 214);
 }
 .removeboxes4 {
   height: 125px;
-  width: 300px;
+  width: 30%;
   background-color: rgb(77, 164, 214);
 }
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 2560px) {
   .boxes {
-    width: 150px;
-  }
-  .removeboxes {
-    width: 150px;
-  }
-  .boxes4 {
-    width: 250px;
-  }
-  .removeboxes4 {
-    width: 250px;
-  }
-  .horizontal4Div {
-    column-gap: 30px;
-  }
-  .longDiv {
-    width: 964px;
+    width: 33%;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -86,45 +72,40 @@ body {
     flex-direction: column;
   }
   .col1 {
-    width: 690px;
+    width: 100%;
   }
   .col2 {
+    width: 100%;
     margin-top: 30px;
     padding-left: 0;
-  }
-  .boxes {
-    width: 150px;
   }
   .addBoxes {
     display: block;
     height: 115px;
-    width: 150px;
+    width: 31%;
     background-color: rgb(77, 164, 214);
   }
-  .longDiv {
-    width: 690px;
+}
+@media only screen and (max-width: 480px) {
+  .col1 {
+    display: none;
   }
-  .boxes4 {
-    width: 150px;
+  .longDiv {
+    display: none;
+  }
+  .removeboxes {
+    display: none;
+  }
+  .addBoxes {
+    display: none;
   }
   .removeboxes4 {
-    width: 150px;
+    display: none;
   }
-  @media only screen and (max-width: 500px) {
-    .col1 {
-      display: none;
-    }
-    .longDiv {
-      display: none;
-    }
-    .removeboxes {
-      display: none;
-    }
-    .addBoxes {
-      display: none;
-    }
-    .removeboxes4 {
-      display: none;
-    }
+  .boxes {
+    width: 100%;
+  }
+  .boxes4 {
+    width: 100%;
   }
 }
